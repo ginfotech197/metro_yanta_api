@@ -1,0 +1,73 @@
+//vendors post
+{
+    "ledger_name" : "Ashok Sinha Behala",
+    "billing_name" : "Ashok Sinha",
+    "email" : "ashoksinha@gmail.com",
+    "mobile1": "9865789543" ,
+    "address1": "Behala" ,
+    "address2": "Behala" ,
+    "state_id": "2" ,
+    "address1": "Behala" ,
+    "po": "Behala" ,
+    "area": "Kolkata" ,
+    "city": "Kolkata" ,
+    "pin": "700002" ,
+    "transaction_type_id": "2" ,
+    "opening_balance": "200"
+}
+
+
+//sales record
+{
+	"sale_master": {
+										"bill_number": "4532",
+										"order_date": "2021-01-02",
+										"delivery_date": "2021-02-22",
+										"comment":"good transaction"
+								 },
+	"sale_details": [
+										{
+											"product_id": "5",
+											"quantity": "30",
+											"price": "11.36"
+										},
+										{
+											"product_id": "5",
+											"quantity": "10",
+											"price": "2.32"
+										},
+										{
+											"product_id": "5",
+											"quantity": "4",
+											"price": "11.10"
+										}
+								 ],
+	"sale_extras": [
+										{
+											"extra_item_id": 3,
+											"amount": 0.4,
+											"item_type": -1
+										},
+										{
+											"extra_item_id": 3,
+											"amount": 70,
+											"item_type": 1
+										}
+								 ],
+ "transaction_master": {
+	 												"transaction_date": "2021-01-23",
+	 												"user_id": 1
+ 											},
+	"transaction_details": [
+														{
+															"ledger_id" : 123,
+															"transaction_type_id": 1
+														},
+														{
+															"ledger_id" : 6,
+															"transaction_type_id": 2
+														}
+												 ]
+}
+
+//************************** end of sale record ********************************************
