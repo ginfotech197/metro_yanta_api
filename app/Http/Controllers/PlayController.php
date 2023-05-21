@@ -74,11 +74,11 @@ class PlayController extends Controller
                     $gameTypes = Cache::remember('buyTicketGameTypes', 40, function () {
                         return GameType::select('id','mrp','payout','multiplexer')->get();
                     });
-                    $gameType = collect($gameTypes)->where('id', $detail->gameTypeId)->first();
+                    $gameType = collect($gameTypes)->where('id', 1)->first();
 //                    $gameType = collect($gameTypes)->where('id', $detail->gameTypeId)->first();
 
                     //insert value for triple
-                    if($detail->gameTypeId == 1){
+//                    if($detail->gameTypeId == 1){
 
                         if($detail->singleNumberId == 0){
                             continue;
@@ -86,7 +86,7 @@ class PlayController extends Controller
 
                         $playDetails = new PlayDetails();
                         $playDetails->play_master_id = $playMaster->id;
-                        $playDetails->game_type_id = $detail->gameTypeId;
+                        $playDetails->game_type_id = 1;
                         $playDetails->combination_number_id = $detail->singleNumberId;
                         $playDetails->quantity = $detail->quantity;
 //                        $playDetails->mrp = round($detail->mrp/22,4);
@@ -105,7 +105,7 @@ class PlayController extends Controller
                         $playDetails->save();
                     }
 
-                }
+//                }
             }
 
 //            $amount = $playMaster->play_details->sum(function($t){

@@ -4,20 +4,6 @@
     <list default="true" id="5eca29a0-ed15-4037-b786-6b351566af54" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PlayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PlayController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SingleNumberController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SingleNumberController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/SingleNumbers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/SingleNumbers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_05_15_133538_create_single_numbers_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_05_15_133538_create_single_numbers_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/AndarNumberSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/AndarNumberSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/BaharNumberSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/BaharNumberSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/CardCombinationSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/CardCombinationSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/CardCombinationTypeSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/CardCombinationTypeSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DoubleNumberCombinationSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DoubleNumberCombinationSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/GameSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/GameSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/GameTypeSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/GameTypeSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/NextGameDrawSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/NextGameDrawSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/SingleNumberSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/SingleNumberSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/draw_master.sql" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/draw_master.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -442,7 +428,7 @@
       <workItem from="1683695056821" duration="1732000" />
       <workItem from="1684642397566" duration="2235000" />
       <workItem from="1684647220090" duration="1104000" />
-      <workItem from="1684648407526" duration="1780000" />
+      <workItem from="1684648407526" duration="2720000" />
     </task>
     <servers />
   </component>
