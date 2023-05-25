@@ -56,18 +56,18 @@ class Kernel extends ConsoleKernel
 //        $schedule->command('generateRollet:result')->everyMinute();
 
         //sleep(0)
-        $schedule->command('generateDouble:result')->cron('*/3 * * * *')->timezone('Asia/Kolkata');
+//        $schedule->command('generateDouble:result')->cron('*/3 * * * *')->timezone('Asia/Kolkata');
 
         //sleep(54);
-        $schedule->command('generateTwelveCard:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
-        $schedule->command('generateSingle:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
-        $schedule->command('generateSixteenCard:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
-        $schedule->call(function () {
-            $centralController = new CentralController();
-            $centralController->createResult(6,1);
-        })->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
+//        $schedule->command('generateTwelveCard:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
+        $schedule->command('generateSingle:result')->cron('*/2 * * * *')->timezone('Asia/Kolkata');
+//        $schedule->command('generateSixteenCard:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
+//        $schedule->call(function () {
+//            $centralController = new CentralController();
+//            $centralController->createResult(6,1);
+//        })->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
 
-        $schedule->command('generateTripleChance:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
+//        $schedule->command('generateTripleChance:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
 
         //database Backup
 //        $schedule->call(function () {
@@ -76,10 +76,10 @@ class Kernel extends ConsoleKernel
 //        })->weekly()->mondays()->at('02:00');
 
         //keep 42 days data only 2 days for security
-        $schedule->call(function () {
-            $centralController = new CentralController();
-            $centralController->delete_data_except_thirty_days();
-        })->dailyAt('03:00')->timezone('Asia/Kolkata');
+//        $schedule->call(function () {
+//            $centralController = new CentralController();
+//            $centralController->delete_data_except_thirty_days();
+//        })->dailyAt('03:00')->timezone('Asia/Kolkata');
 
         //reset everyday approve
         $schedule->call(function () {
