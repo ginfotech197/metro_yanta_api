@@ -253,7 +253,7 @@ Route::group(['middleware' => 'auth:sanctum'],
 
 Route::group(array('prefix' => 'dev'), function() {
 
-//    Route::get('unity/getSingleNumber', [SingleNumberController::class, 'get_all_single_number']);
+    Route::get('unity/getSingleNumber', [SingleNumberController::class, 'get_all_single_number']);
 
 //    Route::get('getRolletNumbers',[RolletNumberController::class, 'get_rollet_numbers']);
 
