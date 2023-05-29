@@ -49,7 +49,7 @@ class Kernel extends ConsoleKernel
 
 //        $schedule->command('generateTripleChance:result')->cron('*/2 * * * *')->timezone('Asia/Kolkata');
 
-        $schedule->command('generate:result')->cron('* * * * *')->timezone('Asia/Kolkata');
+//        $schedule->command('generate:result')->cron('* * * * *')->timezone('Asia/Kolkata');
 
         //1 min 30 sec
 //        $schedule->command('generateRollet:result')->cron('* * * * *')->timezone('Asia/Kolkata');
@@ -60,7 +60,9 @@ class Kernel extends ConsoleKernel
 
         //sleep(54);
 //        $schedule->command('generateTwelveCard:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
-        $schedule->command('generateSingle:result')->cron('*/2 * * * *')->timezone('Asia/Kolkata');
+        $schedule->command('generateSingle:result')->cron('15,30,45 8 * * *')->timezone('Asia/Kolkata');
+        $schedule->command('generateSingle:result')->cron('00,15,30,45 9-21 * * *')->timezone('Asia/Kolkata');
+        $schedule->command('generateSingle:result')->cron('00 22 * * *')->timezone('Asia/Kolkata');
 //        $schedule->command('generateSixteenCard:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
 //        $schedule->call(function () {
 //            $centralController = new CentralController();
