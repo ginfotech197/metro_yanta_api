@@ -31,12 +31,12 @@ class PlayController extends Controller
 
         $inputPlayMaster = (object)$requestedData['playMaster'];
         $inputPlayDetails = $requestedData['playDetails'];
-        $gameAllocation = GameAllocation::whereUserId($inputPlayMaster->terminalId)->first();
-        $gameName = ('game'.$inputPlayMaster->gameId);
-
-        if($gameAllocation->$gameName == 0){
-            return response()->json(['success'=>0,'data'=>null, 'message' => 'Game not Allocated'], 406,[],JSON_NUMERIC_CHECK);
-        }
+//        $gameAllocation = GameAllocation::whereUserId($inputPlayMaster->terminalId)->first();
+//        $gameName = ('game'.$inputPlayMaster->gameId);
+//
+//        if($gameAllocation->$gameName == 0){
+//            return response()->json(['success'=>0,'data'=>null, 'message' => 'Game not Allocated'], 406,[],JSON_NUMERIC_CHECK);
+//        }
 
         $userRelationId = UserRelationWithOther::whereTerminalId($inputPlayMaster->terminalId)->whereActive(1)->first();
         $payoutSlabValue = (PayOutSlab::find((User::find($inputPlayMaster->terminalId))->pay_out_slab_id))->slab_value;
