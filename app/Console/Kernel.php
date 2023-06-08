@@ -60,7 +60,7 @@ class Kernel extends ConsoleKernel
 
         //sleep(54);
 //        $schedule->command('generateTwelveCard:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');
-        $schedule->command('generateSingle:result')->cron('15,30,45 8 * * *')->timezone('Asia/Kolkata');
+        $schedule->command('generateSingle:result')->cron('30,45 8 * * *')->timezone('Asia/Kolkata');
         $schedule->command('generateSingle:result')->cron('00,15,30,45 9-21 * * *')->timezone('Asia/Kolkata');
         $schedule->command('generateSingle:result')->cron('00 22 * * *')->timezone('Asia/Kolkata');
 //        $schedule->command('generateSixteenCard:result')->cron('1-59/2 * * * *')->timezone('Asia/Kolkata');

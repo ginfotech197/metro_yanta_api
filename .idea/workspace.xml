@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5eca29a0-ed15-4037-b786-6b351566af54" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PlayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PlayController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_02_26_163706_create_card_combination_types_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_05_15_133539_create_number_combinations_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2022_02_25_113931_create_card_combinations_table.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -438,7 +434,7 @@
       <workItem from="1685286260401" duration="2582000" />
       <workItem from="1685371414213" duration="900000" />
       <workItem from="1685805936719" duration="1353000" />
-      <workItem from="1686240142246" duration="427000" />
+      <workItem from="1686240142246" duration="1329000" />
     </task>
     <servers />
   </component>
