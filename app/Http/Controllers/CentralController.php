@@ -814,11 +814,11 @@ class CentralController extends Controller
         $nextGameDraw = DB::select("select id, last_draw_id,game_id from next_game_draws");
         $x = [
             'game1' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 1)->first())->last_draw_id])[0]->visible_time,
-            'game2' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 2)->first())->last_draw_id])[0]->visible_time,
-            'game3' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 3)->first())->last_draw_id])[0]->visible_time,
-            'game4' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 4)->first())->last_draw_id])[0]->visible_time,
-            'game5' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 5)->first())->last_draw_id])[0]->visible_time,
-            'game6' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 6)->first())->last_draw_id])[0]->visible_time,
+//            'game2' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 2)->first())->last_draw_id])[0]->visible_time,
+//            'game3' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 3)->first())->last_draw_id])[0]->visible_time,
+//            'game4' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 4)->first())->last_draw_id])[0]->visible_time,
+//            'game5' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 5)->first())->last_draw_id])[0]->visible_time,
+//            'game6' => DB::select("select visible_time from draw_masters where id = ?", [(collect($nextGameDraw)->where('game_id', 6)->first())->last_draw_id])[0]->visible_time,
         ];
         return response()->json(['success'=>1, 'data' => $x], 200);
     }
