@@ -43,7 +43,7 @@ class ManualResultController extends Controller
 //        if($validator->fails()){
 //            return response()->json(['success'=>0,'data'=>null,'error'=>$validator->messages()], 406,[],JSON_NUMERIC_CHECK);
 //        }
-        $requestedData = (object)$request->json()->all();
+
 
 //        $drawMasterTemp = DrawMaster::whereGameId($requestedData->gameId)->whereId($requestedData->drawMasterId)->first();
 //        if ($drawMasterTemp->is_draw_over === 'yes'){
@@ -104,79 +104,87 @@ class ManualResultController extends Controller
 //        return response()->json(['success'=>1,'data'=> new ManualResultResource($manualResult)], 200,[],JSON_NUMERIC_CHECK);
 
 
-        $requestedData = $request->json()->all();
+//        $requestedData = $request->json()->all();
 
 
+        $requestedData = (object)$request->json()->all();
         $gameTypeSix = [7,8,9];
-        foreach ($requestedData as $data){
+        $manualResult = new ManualResult();
+        $manualResult->draw_master_id = $requestedData->drawMasterId;
+        $manualResult->combination_number_id = $requestedData->combinationNumberId;
+        $manualResult->game_type_id = 1;
+        $manualResult->game_date = Carbon::today();
+        $manualResult->save();
 
-            if($data['gameTypeId'] === 7){
-                $dataSplit = str_split($data['combinationNumberId']);
-                foreach ($gameTypeSix as $newGameType){
-                    if($newGameType === 7){
-                        $manualResult = new ManualResult();
-                        $manualResult->draw_master_id = $data['drawMasterId'];
-                        $manualResult->combination_number_id = $data['combinationNumberId'];
-                        $manualResult->game_type_id = $newGameType;
-                        $manualResult->game_date = Carbon::today();
-                        $manualResult->save();
-                    }
-                    if($newGameType === 8){
-                        $manualResult = new ManualResult();
-                        $manualResult->draw_master_id = $data['drawMasterId'];
-                        $manualResult->combination_number_id = $dataSplit[0];
-                        $manualResult->game_type_id = $newGameType;
-                        $manualResult->game_date = Carbon::today();
-                        $manualResult->save();
-                    }
-                    if($newGameType === 9){
-                        $manualResult = new ManualResult();
-                        $manualResult->draw_master_id = $data['drawMasterId'];
-                        $manualResult->combination_number_id = $dataSplit[1];
-                        $manualResult->game_type_id = $newGameType;
-                        $manualResult->game_date = Carbon::today();
-                        $manualResult->save();
-                    }
-                }
-            }else if($data['gameTypeId'] === 2){
-//                $splitNumber = str_split($tripleData->visible_triple_number)
-                $dataCombination = NumberCombination::find($data['combinationNumberId']);
-
-                $splitNumber = str_split($dataCombination->visible_triple_number);
-                $singleNumberValue = (SingleNumber::select()->whereSingleNumber($splitNumber[2])->first())->id;
-                $doubleNumberValue = (DoubleNumberCombination::select()->whereDoubleNumber($splitNumber[1].$splitNumber[2])->first())->id;
-
-                $manualResult = new ManualResult();
-                $manualResult->draw_master_id = $data['drawMasterId'];
-                $manualResult->combination_number_id = $singleNumberValue;
-                $manualResult->game_type_id = 1;
-                $manualResult->game_date = Carbon::today();
-                $manualResult->save();
-
-                $manualResult = new ManualResult();
-                $manualResult->draw_master_id = $data['drawMasterId'];
-                $manualResult->combination_number_id = $data['combinationNumberId'];
-                $manualResult->game_type_id = 2;
-                $manualResult->game_date = Carbon::today();
-                $manualResult->save();
-
-                $manualResult = new ManualResult();
-                $manualResult->draw_master_id = $data['drawMasterId'];
-                $manualResult->combination_number_id = $doubleNumberValue;
-                $manualResult->game_type_id = 5;
-                $manualResult->game_date = Carbon::today();
-                $manualResult->save();
-            }
-
-            else{
-                $manualResult = new ManualResult();
-                $manualResult->draw_master_id = $data['drawMasterId'];
-                $manualResult->combination_number_id = $data['combinationNumberId'];
-                $manualResult->game_type_id = $data['gameTypeId'];
-                $manualResult->game_date = Carbon::today();
-                $manualResult->save();
-            }
-        }
+//        foreach ($requestedData as $data){
+//
+//            if($data['gameTypeId'] === 7){
+//                $dataSplit = str_split($data['combinationNumberId']);
+//                foreach ($gameTypeSix as $newGameType){
+//                    if($newGameType === 7){
+//                        $manualResult = new ManualResult();
+//                        $manualResult->draw_master_id = $data['drawMasterId'];
+//                        $manualResult->combination_number_id = $data['combinationNumberId'];
+//                        $manualResult->game_type_id = $newGameType;
+//                        $manualResult->game_date = Carbon::today();
+//                        $manualResult->save();
+//                    }
+//                    if($newGameType === 8){
+//                        $manualResult = new ManualResult();
+//                        $manualResult->draw_master_id = $data['drawMasterId'];
+//                        $manualResult->combination_number_id = $dataSplit[0];
+//                        $manualResult->game_type_id = $newGameType;
+//                        $manualResult->game_date = Carbon::today();
+//                        $manualResult->save();
+//                    }
+//                    if($newGameType === 9){
+//                        $manualResult = new ManualResult();
+//                        $manualResult->draw_master_id = $data['drawMasterId'];
+//                        $manualResult->combination_number_id = $dataSplit[1];
+//                        $manualResult->game_type_id = $newGameType;
+//                        $manualResult->game_date = Carbon::today();
+//                        $manualResult->save();
+//                    }
+//                }
+//            }else if($data['gameTypeId'] === 2){
+////                $splitNumber = str_split($tripleData->visible_triple_number)
+//                $dataCombination = NumberCombination::find($data['combinationNumberId']);
+//
+//                $splitNumber = str_split($dataCombination->visible_triple_number);
+//                $singleNumberValue = (SingleNumber::select()->whereSingleNumber($splitNumber[2])->first())->id;
+//                $doubleNumberValue = (DoubleNumberCombination::select()->whereDoubleNumber($splitNumber[1].$splitNumber[2])->first())->id;
+//
+//                $manualResult = new ManualResult();
+//                $manualResult->draw_master_id = $data['drawMasterId'];
+//                $manualResult->combination_number_id = $singleNumberValue;
+//                $manualResult->game_type_id = 1;
+//                $manualResult->game_date = Carbon::today();
+//                $manualResult->save();
+//
+//                $manualResult = new ManualResult();
+//                $manualResult->draw_master_id = $data['drawMasterId'];
+//                $manualResult->combination_number_id = $data['combinationNumberId'];
+//                $manualResult->game_type_id = 2;
+//                $manualResult->game_date = Carbon::today();
+//                $manualResult->save();
+//
+//                $manualResult = new ManualResult();
+//                $manualResult->draw_master_id = $data['drawMasterId'];
+//                $manualResult->combination_number_id = $doubleNumberValue;
+//                $manualResult->game_type_id = 5;
+//                $manualResult->game_date = Carbon::today();
+//                $manualResult->save();
+//            }
+//
+//            else{
+//                $manualResult = new ManualResult();
+//                $manualResult->draw_master_id = $data['drawMasterId'];
+//                $manualResult->combination_number_id = $data['combinationNumberId'];
+//                $manualResult->game_type_id = $data['gameTypeId'];
+//                $manualResult->game_date = Carbon::today();
+//                $manualResult->save();
+//            }
+//        }
 
         return response()->json(['success'=>1,'data'=> $requestedData], 200,[],JSON_NUMERIC_CHECK);
 
