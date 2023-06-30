@@ -203,144 +203,149 @@ class ManualResultController extends Controller
 
         $activeDraw = (DrawMaster::whereGameId($game_id)->whereActive(1)->first())->id;
 
-        if ($game_id == 1){
-            $tripleData = NumberCombination::find($requestedData->combination_id);
-            $splitedData = str_split($tripleData->visible_triple_number);
-            $singleNumberValue = (SingleNumber::select()->whereSingleNumber($splitedData[2])->first())->id;
-            $doubleNumberValue = (DoubleNumberCombination::select()->whereDoubleNumber($splitedData[1].$splitedData[2])->first())->id;
-
-            $singleNumber = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
+        $single_number = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
             inner join play_masters on play_masters.id = play_details.play_master_id
             inner join game_types on game_types.id = play_details.game_type_id
-            where play_details.combination_number_id = ".$singleNumberValue." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 1 and play_masters.draw_master_id = ".$activeDraw,[$today]);
+            where date(play_masters.created_at) = ? and play_masters.draw_master_id = ? and play_details.combination_number_id = ?",[$today,$activeDraw,$requestedData->combination_id]);
 
-            $x = [
-                'game_type_name' => 'single number',
-                'quantity' => $singleNumber[0]->quantity,
-                'mrp' => $singleNumber[0]->mrp,
-                'winning' => $singleNumber[0]->winning_price
-            ];
-
-            array_push($returnArray,$x);
-
-            $tripleNumber = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
-            inner join play_masters on play_masters.id = play_details.play_master_id
-            inner join game_types on game_types.id = play_details.game_type_id
-            where play_details.combination_number_id = ".$requestedData->combination_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 2 and play_masters.draw_master_id = ".$activeDraw,[$today]);
-
-            $x = [
-                'game_type_name' => 'triple number',
-                'quantity' => $tripleNumber[0]->quantity,
-                'mrp' => $tripleNumber[0]->mrp,
-                'winning' => $tripleNumber[0]->winning_price
-            ];
-
-            array_push($returnArray,$x);
-
-            $doubleNumber = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
-            inner join play_masters on play_masters.id = play_details.play_master_id
-            inner join game_types on game_types.id = play_details.game_type_id
-            where play_details.combination_number_id = ".$doubleNumberValue." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 5 and play_masters.draw_master_id = ".$activeDraw,[$today]);
-
-            $x = [
-                'game_type_name' => 'double number',
-                'quantity' => $doubleNumber[0]->quantity,
-                'mrp' => $doubleNumber[0]->mrp,
-                'winning' => $doubleNumber[0]->winning_price
-            ];
-            array_push($returnArray,$x);
-        }
-
-        if($game_id == 2){
-            $twelveCard = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
-            inner join play_masters on play_masters.id = play_details.play_master_id
-            inner join game_types on game_types.id = play_details.game_type_id
-            where play_details.combination_number_id = ".$requestedData->combination_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 3 and play_masters.draw_master_id = ".$activeDraw,[$today]);
-
-            $x = [
-                'game_type_name' => 'Twelve Card',
-                'quantity' => $twelveCard[0]->quantity,
-                'mrp' => $twelveCard[0]->mrp,
-                'winning' => $twelveCard[0]->winning_price
-            ];
-            array_push($returnArray,$x);
-        }
-
-        if($game_id == 3){
-            $sixteenCard = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
-            inner join play_masters on play_masters.id = play_details.play_master_id
-            inner join game_types on game_types.id = play_details.game_type_id
-            where play_details.combination_number_id = ".$requestedData->combination_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 4 and play_masters.draw_master_id = ".$activeDraw,[$today]);
-
-            $x = [
-                'game_type_name' => 'Sixteen Card',
-                'quantity' => $sixteenCard[0]->quantity,
-                'mrp' => $sixteenCard[0]->mrp,
-                'winning' => $sixteenCard[0]->winning_price
-            ];
-            array_push($returnArray,$x);
-        }
-
-        if($game_id == 4){
-            $singleIndividual = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
-            inner join play_masters on play_masters.id = play_details.play_master_id
-            inner join game_types on game_types.id = play_details.game_type_id
-            where play_details.combination_number_id = ".$requestedData->combination_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 6 and play_masters.draw_master_id = ".$activeDraw,[$today]);
-
-            $x = [
-                'game_type_name' => 'Sixteen Card',
-                'quantity' => $singleIndividual[0]->quantity,
-                'mrp' => $singleIndividual[0]->mrp,
-                'winning' => $singleIndividual[0]->winning_price
-            ];
-            array_push($returnArray,$x);
-        }
-
-        if($game_id == 5){
-
-            $doubleData = DoubleNumberCombination::find($requestedData->combination_id);
-
-            $doubleIndividual = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
-            inner join play_masters on play_masters.id = play_details.play_master_id
-            inner join game_types on game_types.id = play_details.game_type_id
-            where play_details.combination_number_id = ".$requestedData->combination_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 7 and play_masters.draw_master_id = ".$activeDraw,[$today]);
-
-            $x = [
-                'game_type_name' => 'Double Individual',
-                'quantity' => $doubleIndividual[0]->quantity,
-                'mrp' => $doubleIndividual[0]->mrp,
-                'winning' => $doubleIndividual[0]->winning_price
-            ];
-            array_push($returnArray,$x);
-
-
-            $andarNumber = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
-            inner join play_masters on play_masters.id = play_details.play_master_id
-            inner join game_types on game_types.id = play_details.game_type_id
-            where play_details.combination_number_id = ".$doubleData->andar_number_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 8 and play_masters.draw_master_id = ".$activeDraw,[$today]);
-
-            $x = [
-                'game_type_name' => 'andar number',
-                'quantity' => $andarNumber[0]->quantity,
-                'mrp' => $andarNumber[0]->mrp,
-                'winning' => $andarNumber[0]->winning_price
-            ];
-            array_push($returnArray,$x);
-
-            $baharNumber = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
-            inner join play_masters on play_masters.id = play_details.play_master_id
-            inner join game_types on game_types.id = play_details.game_type_id
-            where play_details.combination_number_id = ".$doubleData->bahar_number_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 9 and play_masters.draw_master_id = ".$activeDraw,[$today]);
-
-            $x = [
-                'game_type_name' => 'bahar number',
-                'quantity' => $baharNumber[0]->quantity,
-                'mrp' => $baharNumber[0]->mrp,
-                'winning' => $baharNumber[0]->winning_price
-            ];
-            array_push($returnArray,$x);
-
-        }
+//        if ($game_id == 1){
+//            $tripleData = NumberCombination::find($requestedData->combination_id);
+//            $splitedData = str_split($tripleData->visible_triple_number);
+//            $singleNumberValue = (SingleNumber::select()->whereSingleNumber($splitedData[2])->first())->id;
+//            $doubleNumberValue = (DoubleNumberCombination::select()->whereDoubleNumber($splitedData[1].$splitedData[2])->first())->id;
+//
+//            $singleNumber = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
+//            inner join play_masters on play_masters.id = play_details.play_master_id
+//            inner join game_types on game_types.id = play_details.game_type_id
+//            where play_details.combination_number_id = ".$singleNumberValue." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 1 and play_masters.draw_master_id = ".$activeDraw,[$today]);
+//
+//            $x = [
+//                'game_type_name' => 'single number',
+//                'quantity' => $singleNumber[0]->quantity,
+//                'mrp' => $singleNumber[0]->mrp,
+//                'winning' => $singleNumber[0]->winning_price
+//            ];
+//
+//            array_push($returnArray,$x);
+//
+//            $tripleNumber = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
+//            inner join play_masters on play_masters.id = play_details.play_master_id
+//            inner join game_types on game_types.id = play_details.game_type_id
+//            where play_details.combination_number_id = ".$requestedData->combination_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 2 and play_masters.draw_master_id = ".$activeDraw,[$today]);
+//
+//            $x = [
+//                'game_type_name' => 'triple number',
+//                'quantity' => $tripleNumber[0]->quantity,
+//                'mrp' => $tripleNumber[0]->mrp,
+//                'winning' => $tripleNumber[0]->winning_price
+//            ];
+//
+//            array_push($returnArray,$x);
+//
+//            $doubleNumber = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
+//            inner join play_masters on play_masters.id = play_details.play_master_id
+//            inner join game_types on game_types.id = play_details.game_type_id
+//            where play_details.combination_number_id = ".$doubleNumberValue." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 5 and play_masters.draw_master_id = ".$activeDraw,[$today]);
+//
+//            $x = [
+//                'game_type_name' => 'double number',
+//                'quantity' => $doubleNumber[0]->quantity,
+//                'mrp' => $doubleNumber[0]->mrp,
+//                'winning' => $doubleNumber[0]->winning_price
+//            ];
+//            array_push($returnArray,$x);
+//        }
+//
+//        if($game_id == 2){
+//            $twelveCard = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
+//            inner join play_masters on play_masters.id = play_details.play_master_id
+//            inner join game_types on game_types.id = play_details.game_type_id
+//            where play_details.combination_number_id = ".$requestedData->combination_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 3 and play_masters.draw_master_id = ".$activeDraw,[$today]);
+//
+//            $x = [
+//                'game_type_name' => 'Twelve Card',
+//                'quantity' => $twelveCard[0]->quantity,
+//                'mrp' => $twelveCard[0]->mrp,
+//                'winning' => $twelveCard[0]->winning_price
+//            ];
+//            array_push($returnArray,$x);
+//        }
+//
+//        if($game_id == 3){
+//            $sixteenCard = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
+//            inner join play_masters on play_masters.id = play_details.play_master_id
+//            inner join game_types on game_types.id = play_details.game_type_id
+//            where play_details.combination_number_id = ".$requestedData->combination_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 4 and play_masters.draw_master_id = ".$activeDraw,[$today]);
+//
+//            $x = [
+//                'game_type_name' => 'Sixteen Card',
+//                'quantity' => $sixteenCard[0]->quantity,
+//                'mrp' => $sixteenCard[0]->mrp,
+//                'winning' => $sixteenCard[0]->winning_price
+//            ];
+//            array_push($returnArray,$x);
+//        }
+//
+//        if($game_id == 4){
+//            $singleIndividual = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
+//            inner join play_masters on play_masters.id = play_details.play_master_id
+//            inner join game_types on game_types.id = play_details.game_type_id
+//            where play_details.combination_number_id = ".$requestedData->combination_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 6 and play_masters.draw_master_id = ".$activeDraw,[$today]);
+//
+//            $x = [
+//                'game_type_name' => 'Sixteen Card',
+//                'quantity' => $singleIndividual[0]->quantity,
+//                'mrp' => $singleIndividual[0]->mrp,
+//                'winning' => $singleIndividual[0]->winning_price
+//            ];
+//            array_push($returnArray,$x);
+//        }
+//
+//        if($game_id == 5){
+//
+//            $doubleData = DoubleNumberCombination::find($requestedData->combination_id);
+//
+//            $doubleIndividual = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
+//            inner join play_masters on play_masters.id = play_details.play_master_id
+//            inner join game_types on game_types.id = play_details.game_type_id
+//            where play_details.combination_number_id = ".$requestedData->combination_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 7 and play_masters.draw_master_id = ".$activeDraw,[$today]);
+//
+//            $x = [
+//                'game_type_name' => 'Double Individual',
+//                'quantity' => $doubleIndividual[0]->quantity,
+//                'mrp' => $doubleIndividual[0]->mrp,
+//                'winning' => $doubleIndividual[0]->winning_price
+//            ];
+//            array_push($returnArray,$x);
+//
+//
+//            $andarNumber = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
+//            inner join play_masters on play_masters.id = play_details.play_master_id
+//            inner join game_types on game_types.id = play_details.game_type_id
+//            where play_details.combination_number_id = ".$doubleData->andar_number_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 8 and play_masters.draw_master_id = ".$activeDraw,[$today]);
+//
+//            $x = [
+//                'game_type_name' => 'andar number',
+//                'quantity' => $andarNumber[0]->quantity,
+//                'mrp' => $andarNumber[0]->mrp,
+//                'winning' => $andarNumber[0]->winning_price
+//            ];
+//            array_push($returnArray,$x);
+//
+//            $baharNumber = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
+//            inner join play_masters on play_masters.id = play_details.play_master_id
+//            inner join game_types on game_types.id = play_details.game_type_id
+//            where play_details.combination_number_id = ".$doubleData->bahar_number_id." and play_masters.game_id = ".$game_id." and date(play_masters.created_at) = ? and play_details.game_type_id = 9 and play_masters.draw_master_id = ".$activeDraw,[$today]);
+//
+//            $x = [
+//                'game_type_name' => 'bahar number',
+//                'quantity' => $baharNumber[0]->quantity,
+//                'mrp' => $baharNumber[0]->mrp,
+//                'winning' => $baharNumber[0]->winning_price
+//            ];
+//            array_push($returnArray,$x);
+//
+//        }
 
 
         return response()->json(['success'=>1,'data'=> $returnArray], 200,[],JSON_NUMERIC_CHECK);
