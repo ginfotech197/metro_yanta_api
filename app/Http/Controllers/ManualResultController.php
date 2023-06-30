@@ -197,11 +197,11 @@ class ManualResultController extends Controller
 
         $returnArray = [];
 
-        $game_id = (GameType::find($requestedData->game_type_id))->game_id;
+        $game_id = 1;
 
         $today= Carbon::today()->format('Y-m-d');
 
-        $activeDraw = (DrawMaster::whereGameId($game_id)->whereActive(1)->first())->id;
+        $activeDraw = (DrawMaster::whereGameId(1)->whereActive(1)->first())->id;
 
         $single_number = DB::select("select sum(quantity) as quantity, max(play_details.mrp) as mrp, max(game_types.winning_price) as winning_price from play_details
             inner join play_masters on play_masters.id = play_details.play_master_id
