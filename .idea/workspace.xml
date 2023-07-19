@@ -148,7 +148,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../multi_game_project/multi_game_api" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -444,6 +444,9 @@
       <workItem from="1687881669368" duration="1772000" />
       <workItem from="1688123027906" duration="2430000" />
       <workItem from="1688288607462" duration="1431000" />
+      <workItem from="1688820334869" duration="307000" />
+      <workItem from="1689100048486" duration="12000" />
+      <workItem from="1689216602484" duration="44000" />
     </task>
     <servers />
   </component>

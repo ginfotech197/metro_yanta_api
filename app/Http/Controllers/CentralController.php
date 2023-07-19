@@ -95,7 +95,7 @@ class CentralController extends Controller
 
         $singleNumberTargetData = DB::select("select sum(quantity) as quantity,combination_number_id from play_details
                 inner join play_masters on play_details.play_master_id = play_masters.id
-                where play_masters.draw_master_id = ? and play_masters.game_id = 4 and play_details.game_type_id = 1 and date(play_masters.created_at) = ?
+                where play_masters.draw_master_id = ? and play_masters.game_id = 1 and play_details.game_type_id = 1 and date(play_masters.created_at) = ?
                 GROUP by combination_number_id
                 having sum(play_details.quantity)<= ?
                 order by rand()
@@ -115,7 +115,7 @@ class CentralController extends Controller
         if(empty($singleNumberTargetData)){
             $singleNumberTargetData = DB::select("select * from (select sum(quantity) as quantity,combination_number_id from play_details
                 inner join play_masters on play_details.play_master_id = play_masters.id
-                 where play_masters.draw_master_id = ? and play_masters.game_id = 4 and play_details.game_type_id = 1 and date(play_masters.created_at) = ?
+                 where play_masters.draw_master_id = ? and play_masters.game_id = 1 and play_details.game_type_id = 1 and date(play_masters.created_at) = ?
                 GROUP by combination_number_id
                 having sum(play_details.quantity)>= ?) as table1
                 order by quantity
