@@ -45,6 +45,9 @@ class UserController extends Controller
 
     function login(Request $request)
     {
+        if(empty($request->json()->all())){
+            return response()->json(['success'=>4,'data'=>null, 'message'=>'Array is null'], 200,[],JSON_NUMERIC_CHECK);
+        }
 
         if(!($request->devToken)){
             return response()->json(['success'=>3,'data'=>null, 'message'=>'Dev token not found'], 200,[],JSON_NUMERIC_CHECK);
