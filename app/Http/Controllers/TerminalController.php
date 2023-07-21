@@ -56,6 +56,8 @@ class TerminalController extends Controller
 
         DB::select("update user_relation_with_others set terminal_id = null where terminal_id = ".$id);
 
+        DB::select("delete FROM game_allocations where user_id = ".$id);
+
         DB::select("delete from users where id = ".$id);
 
         return response()->json(['success'=>1,'message'=> 'Terminal Successfully deleted'], 200);
