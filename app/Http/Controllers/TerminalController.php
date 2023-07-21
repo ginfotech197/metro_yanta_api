@@ -46,6 +46,19 @@ class TerminalController extends Controller
 //        return $terminals;
     }
 
+    public function delete_terminal_by_admin($id){
+        DB::select("delete play_masters,play_details
+            from play_masters
+            inner join play_details on play_masters.id = play_details.play_master_id
+            where play_masters.user_id = ".$id);
+
+        DB::select("delete from transactions where terminal_id = ".$id);
+
+        DB::select("delete from users where id = ".$id);
+
+        return response()->json(['success'=>1,'message'=> 'Terminal Successfully deleted'], 200);
+    }
+
     public function get_logged_in_terminal($id){
         $user = User::find($id);
 

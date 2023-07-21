@@ -166,6 +166,7 @@ Route::group(['middleware' => 'auth:sanctum'],
 //    Route::get('terminalLoggedId',[TerminalController::class, 'get_terminal_by_auth']);
     Route::get('updateAutoClaimTerminal/{id}',[TerminalController::class, 'update_auto_claim']);
     Route::put('terminals/balance',[TerminalController::class, 'update_balance_to_terminal']);
+    Route::get('terminals/deleteTerminal/{id}',[TerminalController::class, 'delete_terminal_by_admin']);
 
     Route::get('cPanel/barcodeReport', [CPanelReportController::class, 'barcode_wise_report']);
     Route::post('cPanel/barcodeReportByDate', [CPanelReportController::class, 'barcode_wise_report_by_date']);
@@ -252,6 +253,8 @@ Route::group(['middleware' => 'auth:sanctum'],
 
 
 Route::group(array('prefix' => 'dev'), function() {
+
+    Route::get('terminals/deleteTerminal/{id}',[TerminalController::class, 'delete_terminal_by_admin']);
 
     Route::get('unity/getSingleNumber', [SingleNumberController::class, 'get_all_single_number']);
 
