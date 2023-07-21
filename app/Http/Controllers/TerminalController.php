@@ -48,6 +48,9 @@ class TerminalController extends Controller
     }
 
     public function delete_terminal_by_admin($id){
+
+        DB::select("delete from personal_access_tokens WHERE tokenable_id = ".$id);
+
         DB::select("delete play_masters,play_details
             from play_masters
             inner join play_details on play_masters.id = play_details.play_master_id
