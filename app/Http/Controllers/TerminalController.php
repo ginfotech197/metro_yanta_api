@@ -13,6 +13,7 @@ use App\Models\RechargeToUser;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomVoucher;
@@ -59,6 +60,9 @@ class TerminalController extends Controller
         DB::select("delete FROM game_allocations where user_id = ".$id);
 
         DB::select("delete from users where id = ".$id);
+
+        Artisan::call('optimize:clear');
+        Artisan::call('optimize');
 
         return response()->json(['success'=>1,'message'=> 'Terminal Successfully deleted'], 200);
     }

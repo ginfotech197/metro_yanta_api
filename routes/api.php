@@ -254,7 +254,7 @@ Route::group(['middleware' => 'auth:sanctum'],
 
 Route::group(array('prefix' => 'dev'), function() {
 
-//    Route::get('terminals/deleteTerminal/{id}',[TerminalController::class, 'delete_terminal_by_admin']);
+    Route::get('terminals/deleteTerminal/{id}',[TerminalController::class, 'delete_terminal_by_admin']);
 
     Route::get('unity/getSingleNumber', [SingleNumberController::class, 'get_all_single_number']);
 
