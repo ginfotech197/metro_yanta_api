@@ -201,7 +201,7 @@ Route::group(['middleware' => 'auth:sanctum'],
     Route::post('superStockists',[SuperStockistController::class, 'create_super_stockist']);
     Route::put('superStockists',[SuperStockistController::class, 'update_super_stockist']);
     Route::put('superStockists/balance',[SuperStockistController::class, 'update_balance_to_super_stockist']);
-    Route::get('superStockists/deleteStockist/{id}',[SuperStockistController::class, 'delete_super_stockist_by_admin']);
+    Route::get('superStockists/deleteSuperStockist/{id}',[SuperStockistController::class, 'delete_super_stockist_by_admin']);
 
 
 
@@ -255,6 +255,8 @@ Route::group(['middleware' => 'auth:sanctum'],
 
 
 Route::group(array('prefix' => 'dev'), function() {
+
+    Route::get('superStockists/deleteSuperStockist/{id}',[SuperStockistController::class, 'delete_super_stockist_by_admin']);
 
     Route::get('terminals/deleteTerminal/{id}',[TerminalController::class, 'delete_terminal_by_admin']);
 
