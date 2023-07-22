@@ -67,6 +67,30 @@ class TerminalController extends Controller
         Artisan::call('optimize:clear');
         Artisan::call('optimize');
 
+        return response()->json(['success'=>1], 200);
+    }
+
+    public function delete_terminal_except_admin($id){
+
+        DB::select("delete from personal_access_tokens WHERE tokenable_id = ".$id);
+
+        DB::select("delete play_masters,play_details
+            from play_masters
+            inner join play_details on play_masters.id = play_details.play_master_id
+            where play_masters.user_id = ".$id);
+
+        DB::select("delete from transactions where terminal_id = ".$id);
+
+        DB::select("delete from recharge_to_users where beneficiary_uid = ".$id);
+
+        DB::select("update user_relation_with_others set terminal_id = null where terminal_id = ".$id);
+
+        DB::select("delete FROM game_allocations where user_id = ".$id);
+
+        DB::select("delete from users where id = ".$id);
+
+
+
         return response()->json(['success'=>1,'message'=> 'Terminal Successfully deleted'], 200);
     }
 

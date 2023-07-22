@@ -19,6 +19,7 @@ use App\Models\UserType;
 use App\Models\CustomVoucher;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -26,6 +27,42 @@ use Illuminate\Support\Facades\Validator;
 class StockistController extends Controller
 {
 
+    public function delete_stockist_by_admin($id){
+        $terminals = DB::select("select terminal_id from user_relation_with_others where stockist_id = $id and terminal_id is not null");
+
+        $terminalController = new TerminalController();
+        foreach ($terminals as $terminal){
+            $terminalController->delete_terminal_except_admin($terminal->terminal_id);
+        }
+
+        DB::select("delete from recharge_to_users where beneficiary_uid = ".$id);
+
+        DB::select("delete from user_relation_with_others where stockist_id =  ".$id);
+
+        DB::select("delete from users where id = ".$id);
+
+        Artisan::call('optimize:clear');
+        Artisan::call('optimize');
+
+        return response()->json(['success'=>1,'message'=> 'Stockist Successfully deleted'], 200);
+    }
+
+    public function delete_stockist_except_admin($id){
+        $terminals = DB::select("select terminal_id from user_relation_with_others where stockist_id = $id and terminal_id is not null");
+
+        $terminalController = new TerminalController();
+        foreach ($terminals as $terminal){
+            $terminalController->delete_terminal_except_admin($terminal->terminal_id);
+        }
+
+        DB::select("delete from recharge_to_users where beneficiary_uid = ".$id);
+
+        DB::select("delete from user_relation_with_others where stockist_id =  ".$id);
+
+        DB::select("delete from users where id = ".$id);
+
+        return response()->json(['success'=>1], 200);
+    }
 
     public function customer_sale_reports(Request $request){
         $requestedData = (object)$request->json()->all();

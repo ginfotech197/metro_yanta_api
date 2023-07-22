@@ -23,12 +23,32 @@ use App\Models\UserType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class SuperStockistController extends Controller
 {
+    public function delete_super_stockist_by_admin($id){
+        $stockists = DB::select("select stockist_id from user_relation_with_others where super_stockist_id = ".$id);
+        $stockistController = new StockistController();
+
+        foreach ($stockists as $stockist){
+            $stockistController->delete_stockist_except_admin($stockist->stockist_id);
+        }
+        DB::select("delete from recharge_to_users where beneficiary_uid = ".$id);
+
+        DB::select("delete from user_relation_with_others where super_stockist_id =  ".$id);
+
+        DB::select("delete from users where id = ".$id);
+
+        Artisan::call('optimize:clear');
+        Artisan::call('optimize');
+
+        return response()->json(['success'=>1,'message'=> 'Super Stockist Successfully deleted'], 200);
+    }
+
 
     public function create_super_stockist(Request $request)
     {
