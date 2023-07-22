@@ -46,7 +46,7 @@ class SuperStockistController extends Controller
         Artisan::call('optimize:clear');
         Artisan::call('optimize');
 
-        return response()->json(['success'=>1,'message'=> 'Super Stockist Successfully deleted'], 200);
+        return response()->json(['success'=>1,'superStockistId' => $id,'message'=> 'Super Stockist Successfully deleted'], 200);
     }
 
 

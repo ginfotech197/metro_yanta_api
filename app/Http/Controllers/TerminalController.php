@@ -67,7 +67,7 @@ class TerminalController extends Controller
         Artisan::call('optimize:clear');
         Artisan::call('optimize');
 
-        return response()->json(['success'=>1,'message'=> 'Terminal Successfully deleted'], 200);
+        return response()->json(['success'=>1,'terminalId' => $id,'message'=> 'Terminal Successfully deleted'], 200);
     }
 
     public function delete_terminal_except_admin($id){

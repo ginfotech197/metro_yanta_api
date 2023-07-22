@@ -44,7 +44,7 @@ class StockistController extends Controller
         Artisan::call('optimize:clear');
         Artisan::call('optimize');
 
-        return response()->json(['success'=>1,'message'=> 'Stockist Successfully deleted'], 200);
+        return response()->json(['success'=>1,'stockistId' => $id,'message'=> 'Stockist Successfully deleted'], 200);
     }
 
     public function delete_stockist_except_admin($id){
