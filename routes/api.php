@@ -320,7 +320,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::post('getRechargeDetails',[RechargeToUserController::class, 'getTransactionByUserForAdmin']);
     Route::post('getTransactionByUser',[RechargeToUserController::class, 'getTransactionByUser']);
 
-    Route::get('getTodayResultByGame',[ResultMasterController::class, 'get_result_today_by_game']);
+    Route::post('getTodayResultByGame',[ResultMasterController::class, 'get_result_today_by_game']);
     Route::get('getTodayResultByGameAsc/{id}',[ResultMasterController::class, 'get_result_today_by_game_Asc']);
 
     Route::get('getTodayLastResultByGame/{id}',[ResultMasterController::class, 'get_result_today_last_by_game']);

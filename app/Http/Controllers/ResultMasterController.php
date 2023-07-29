@@ -398,8 +398,33 @@ class ResultMasterController extends Controller
         return response()->json(['success'=>1, 'data' => $return_array], 200);
     }
 
+    public function dateCheck($today, $sent){
+        if($today == $sent){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-    public function get_result_today_by_game(){
+    public function get_result_today_by_game(Request $request){
+
+        $tempToday = Carbon::today()->format("Y-m-d");
+        $req = Carbon::createFromFormat('Y-m-d', ((object)$request->json()->all())->date)->format("Y-m-d");
+
+        if($this->dateCheck($tempToday,$req)){
+
+            $singleNumber = Cache::remember($req, 3000000, function () use ($req) {
+                return DB::select("select draw_masters.id as draw_id ,draw_masters.visible_time as draw_time ,result_details.multiplexer, single_numbers.single_number from result_masters
+                inner join result_details on result_details.result_master_id = result_masters.id
+                inner join single_numbers on single_numbers.id = result_details.combination_number_id
+                inner join draw_masters on draw_masters.id = result_masters.draw_master_id
+                where result_masters.game_id = 1 and result_masters.game_date = ?
+                order by draw_masters.end_time", [$req]);
+            });
+
+            return response()->json(['success'=>1,'data' => $singleNumber], 200);
+        }
+
         $id = 1;
         $today= Carbon::today()->format('Y-m-d');
         $return_array = [];
