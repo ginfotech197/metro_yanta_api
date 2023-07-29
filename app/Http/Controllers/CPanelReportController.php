@@ -897,123 +897,14 @@ class CPanelReportController extends Controller
 
         if($requestedData->terminal_id === null){
 
-            if($requestedData->game_id === 1){
-                $single_number = DB::select("select single_numbers.id, single_numbers.single_number as visible_number, tabel1.quantity from (
+            if($requestedData->game_id === 1) {
+                $singleNumber = DB::select("select single_numbers.id, single_numbers.single_number as visible_number, tabel1.quantity from (
                     select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
                     right join single_numbers on play_details.combination_number_id = single_numbers.id
                     inner join play_masters on play_details.play_master_id = play_masters.id
                     where game_type_id = 1 and play_masters.draw_master_id = ".$requestedData->draw_id." and date(play_masters.created_at) = ?
                     group by play_details.combination_number_id) as tabel1
-                    right join single_numbers on tabel1.combination_number_id = single_numbers.id",[$today]);
-
-                $triple_number =  DB::select("select number_combinations.id, number_combinations.visible_triple_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join number_combinations on play_details.combination_number_id = number_combinations.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 2 and play_masters.draw_master_id = ".$requestedData->draw_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join number_combinations on tabel1.combination_number_id = number_combinations.id",[$today]);
-
-                $double_number =  DB::select("select double_number_combinations.id, double_number_combinations.visible_double_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join double_number_combinations on play_details.combination_number_id = double_number_combinations.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 5 and play_masters.draw_master_id = ".$requestedData->draw_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join double_number_combinations on tabel1.combination_number_id = double_number_combinations.id",[$today]);
-
-                $temp = [
-                    'single_number' => $single_number,
-                    'double_number' => $double_number,
-                    'triple_number' => $triple_number
-                ];
-
-                array_push($x ,(object)$temp);
-
-            }elseif ($requestedData->game_id === 2){
-
-                $twelve_card = DB::select("select card_combinations.id, CONCAT(card_combinations.rank_name, ' ' ,card_combinations.suit_name) as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    inner join card_combinations on play_details.combination_number_id = card_combinations.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 3 and play_masters.draw_master_id = ".$requestedData->draw_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join card_combinations on tabel1.combination_number_id = card_combinations.id
-                    where card_combinations.card_combination_type_id = 1",[$today]);
-
-                $temp = [
-                    'twelve_card' => $twelve_card,
-                ];
-
-                array_push($x ,(object)$temp);
-
-            }elseif ($requestedData->game_id === 3){
-
-                $sixteen_card = DB::select("select card_combinations.id, CONCAT(card_combinations.rank_name, ' ' ,card_combinations.suit_name) as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    inner join card_combinations on play_details.combination_number_id = card_combinations.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 4 and play_masters.draw_master_id = ".$requestedData->draw_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join card_combinations on tabel1.combination_number_id = card_combinations.id
-                    where card_combinations.card_combination_type_id = 2",[$today]);
-
-                $temp = [
-                    'sixteen_card' => $sixteen_card,
-                ];
-
-                array_push($x ,(object)$temp);
-
-            }elseif ($requestedData->game_id === 4){
-
-                $single_individual = DB::select("select single_numbers.id, single_numbers.single_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join single_numbers on play_details.combination_number_id = single_numbers.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 6 and play_masters.draw_master_id = ".$requestedData->draw_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join single_numbers on tabel1.combination_number_id = single_numbers.id",[$today]);
-
-                $temp = [
-                    'single_individual' => $single_individual,
-                ];
-
-                array_push($x ,(object)$temp);
-
-            }elseif ($requestedData->game_id === 5){
-
-                $double_individual = DB::select("select double_number_combinations.id, double_number_combinations.visible_double_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join double_number_combinations on play_details.combination_number_id = double_number_combinations.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 7 and play_masters.draw_master_id = ".$requestedData->draw_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join double_number_combinations on tabel1.combination_number_id = double_number_combinations.id",[$today]);
-
-                $andar_number = DB::select("select andar_numbers.id, andar_numbers.andar_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join andar_numbers on play_details.combination_number_id = andar_numbers.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 8 and play_masters.draw_master_id = ".$requestedData->draw_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join andar_numbers on tabel1.combination_number_id = andar_numbers.id",[$today]);
-
-                $bahar_number = DB::select("select bahar_numbers.id, bahar_numbers.bahar_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join bahar_numbers on play_details.combination_number_id = bahar_numbers.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 9 and play_masters.draw_master_id = ".$requestedData->draw_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join bahar_numbers on tabel1.combination_number_id = bahar_numbers.id
-                    order by bahar_numbers.id",[$today]);
-
-                $temp = [
-                    'double_individual' => $double_individual,
-                    'andar_number' => $andar_number,
-                    'bahar_number' => $bahar_number
-                ];
-
-                array_push($x ,(object)$temp);
+                    right join single_numbers on tabel1.combination_number_id = single_numbers.id;",[$today]);
             }
 
 
@@ -1022,125 +913,17 @@ class CPanelReportController extends Controller
 
 
         if($requestedData->game_id === 1){
-            $single_number = DB::select("select single_numbers.id, single_numbers.single_number as visible_number, tabel1.quantity from (
-            select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-            right join single_numbers on play_details.combination_number_id = single_numbers.id
-            inner join play_masters on play_details.play_master_id = play_masters.id
-            where game_type_id = 1 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
-            group by play_details.combination_number_id) as tabel1
-            right join single_numbers on tabel1.combination_number_id = single_numbers.id",[$today]);
-
-            $triple_number =  DB::select("select number_combinations.id, number_combinations.visible_triple_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join number_combinations on play_details.combination_number_id = number_combinations.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 2 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join number_combinations on tabel1.combination_number_id = number_combinations.id",[$today]);
-
-            $double_number =  DB::select("select double_number_combinations.id, double_number_combinations.visible_double_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join double_number_combinations on play_details.combination_number_id = double_number_combinations.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 5 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join double_number_combinations on tabel1.combination_number_id = double_number_combinations.id",[$today]);
-
-            $temp = [
-                'single_number' => $single_number,
-                'double_number' => $double_number,
-                'triple_number' => $triple_number
-            ];
-
-            array_push($x ,(object)$temp);
-        }elseif ($requestedData->game_id === 2){
-
-            $twelve_card = DB::select("select card_combinations.id, CONCAT(card_combinations.rank_name, ' ' ,card_combinations.suit_name) as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    inner join card_combinations on play_details.combination_number_id = card_combinations.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 3 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join card_combinations on tabel1.combination_number_id = card_combinations.id
-                    where card_combinations.card_combination_type_id = 1",[$today]);
-
-            $temp = [
-                'twelve_card' => $twelve_card,
-            ];
-
-            array_push($x ,(object)$temp);
-
-        }elseif ($requestedData->game_id === 3){
-
-            $sixteen_card = DB::select("select card_combinations.id, CONCAT(card_combinations.rank_name, ' ' ,card_combinations.suit_name) as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    inner join card_combinations on play_details.combination_number_id = card_combinations.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 4 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join card_combinations on tabel1.combination_number_id = card_combinations.id
-                    where card_combinations.card_combination_type_id = 2",[$today]);
-
-            $temp = [
-                'sixteen_card' => $sixteen_card,
-            ];
-
-            array_push($x ,(object)$temp);
-
-        }elseif ($requestedData->game_id === 4){
-
-            $single_individual = DB::select("select single_numbers.id, single_numbers.single_number as visible_number, tabel1.quantity from (
+            $singleNumber = DB::select("select single_numbers.id, single_numbers.single_number as visible_number, tabel1.quantity from (
                     select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
                     right join single_numbers on play_details.combination_number_id = single_numbers.id
                     inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 6 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
+                    where game_type_id = 1 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
                     group by play_details.combination_number_id) as tabel1
                     right join single_numbers on tabel1.combination_number_id = single_numbers.id",[$today]);
-
-            $temp = [
-                'single_individual' => $single_individual,
-            ];
-
-            array_push($x ,(object)$temp);
-
-        }elseif ($requestedData->game_id === 5){
-
-            $double_individual = DB::select("select double_number_combinations.id, double_number_combinations.visible_double_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join double_number_combinations on play_details.combination_number_id = double_number_combinations.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 7 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join double_number_combinations on tabel1.combination_number_id = double_number_combinations.id",[$today]);
-
-            $andar_number = DB::select("select andar_numbers.id, andar_numbers.andar_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join andar_numbers on play_details.combination_number_id = andar_numbers.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 8 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join andar_numbers on tabel1.combination_number_id = andar_numbers.id",[$today]);
-
-            $bahar_number = DB::select("select bahar_numbers.id, bahar_numbers.bahar_number as visible_number, tabel1.quantity from (
-                    select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
-                    right join bahar_numbers on play_details.combination_number_id = bahar_numbers.id
-                    inner join play_masters on play_details.play_master_id = play_masters.id
-                    where game_type_id = 9 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
-                    group by play_details.combination_number_id) as tabel1
-                    right join bahar_numbers on tabel1.combination_number_id = bahar_numbers.id
-                    order by bahar_numbers.id",[$today]);
-
-            $temp = [
-                'double_individual' => $double_individual,
-                'andar_number' => $andar_number,
-                'bahar_number' => $bahar_number
-            ];
-
-            array_push($x ,(object)$temp);
         }
 
 
-        return response()->json(['success'=> 1, 'data' => $x[0]], 200);
+        return response()->json(['success'=> 1, 'data' => $singleNumber], 200);
 
 
 
