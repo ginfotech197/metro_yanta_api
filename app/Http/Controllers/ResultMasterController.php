@@ -411,7 +411,7 @@ class ResultMasterController extends Controller
         $tempToday = Carbon::today()->format("Y-m-d");
         $req = Carbon::createFromFormat('Y-m-d', ((object)$request->json()->all())->date)->format("Y-m-d");
 
-        if($this->dateCheck($tempToday,$req)){
+        if($this->dateCheck($tempToday,$req) == false){
 
             $singleNumber = Cache::remember($req, 3000000, function () use ($req) {
                 return DB::select("select draw_masters.id as draw_id ,draw_masters.visible_time as draw_time ,result_details.multiplexer, single_numbers.single_number from result_masters
