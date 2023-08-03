@@ -356,7 +356,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::post('getResultByDate', [ResultMasterController::class, 'get_result_by_date']);
 
     Route::post('cPanel/barcodeReportByDate', [CPanelReportController::class, 'barcode_wise_report_by_date']);
-    Route::post('cPanel/loadReport', [CPanelReportController::class, 'load_report']);
+    Route::post('cPanel/loadReport', [CPanelReportController::class, 'loaduy_report']);
     Route::post('stockist/customerSaleReports', [StockistController::class, 'customer_sale_reports']);
     Route::post('superStockist/customerSaleReports', [SuperStockistController::class, 'customer_sale_reports']);
 
