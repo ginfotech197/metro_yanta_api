@@ -908,7 +908,7 @@ class CPanelReportController extends Controller
             }
 
 
-            return response()->json(['success'=> 1, 'data' => $x[0]], 200);
+            return response()->json(['success'=> 1, 'data' => $singleNumber], 200);
         }
 
 
