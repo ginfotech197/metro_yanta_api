@@ -897,7 +897,7 @@ class CPanelReportController extends Controller
 
         if($requestedData->terminal_id === null){
 
-            if($requestedData->game_id === 1) {
+//            if($requestedData->game_id === 1) {
                 $singleNumber = DB::select("select single_numbers.id, single_numbers.single_number as visible_number, tabel1.quantity from (
                     select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
                     right join single_numbers on play_details.combination_number_id = single_numbers.id
@@ -905,14 +905,14 @@ class CPanelReportController extends Controller
                     where game_type_id = 1 and play_masters.draw_master_id = ".$requestedData->draw_id." and date(play_masters.created_at) = ?
                     group by play_details.combination_number_id) as tabel1
                     right join single_numbers on tabel1.combination_number_id = single_numbers.id;",[$today]);
-            }
+//            }
 
 
             return response()->json(['success'=> 1, 'data' => $singleNumber], 200);
         }
 
 
-        if($requestedData->game_id === 1){
+//        if($requestedData->game_id === 1){
             $singleNumber = DB::select("select single_numbers.id, single_numbers.single_number as visible_number, tabel1.quantity from (
                     select sum(play_details.quantity) as quantity, play_details.combination_number_id from play_details
                     right join single_numbers on play_details.combination_number_id = single_numbers.id
@@ -920,7 +920,7 @@ class CPanelReportController extends Controller
                     where game_type_id = 1 and play_masters.draw_master_id = ".$requestedData->draw_id." and play_masters.user_id = ".$requestedData->terminal_id." and date(play_masters.created_at) = ?
                     group by play_details.combination_number_id) as tabel1
                     right join single_numbers on tabel1.combination_number_id = single_numbers.id",[$today]);
-        }
+//        }
 
 
         return response()->json(['success'=> 1, 'data' => $singleNumber], 200);
