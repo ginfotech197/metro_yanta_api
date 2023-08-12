@@ -427,6 +427,7 @@ Route::group(array('prefix' => 'dev'), function() {
      Route::put('cPanel/game/payout',[GameTypeController::class, 'update_payout']);
 
     Route::get('getGame', [GameController::class, 'getGame']);
+    Route::get('reverse_draw/{id}', [DrawMasterController::class, 'reverseDraw']);
 
 
 });

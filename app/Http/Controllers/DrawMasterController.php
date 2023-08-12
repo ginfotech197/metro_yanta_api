@@ -18,6 +18,15 @@ class DrawMasterController extends Controller
         return response()->json(['success'=>1,'data'=>DrawMasterResource::collection($result)], 200,[],JSON_NUMERIC_CHECK);
     }
 
+    public function reverseDraw($id){
+        $today= Carbon::today()->format('Y-m-d');
+        DB::select("delete from result_masters where draw_master_id > ".$id." and date(created_at) = '".$today."'");
+        DB::select("update draw_masters set active = 0");
+        DB::select("update draw_masters set active = 0 where id = ".$id);
+        DB::select("update next_game_draws set last_draw_id = ".$id);
+        DB::select("update next_game_draws set next_draw_id = ".($id+1));
+        return response()->json(['success'=>1, "message" => "Draw id ".$id." activated"], 200,[],JSON_NUMERIC_CHECK);
+    }
 
     public function get_draw_time_by_game_id($id)
     {

@@ -16,6 +16,7 @@ use App\Models\SingleNumber;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserRelationWithOther;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -38,6 +39,15 @@ class PlayController extends Controller
 //            return response()->json(['success'=>0,'data'=>null, 'message' => 'Game not Allocated'], 406,[],JSON_NUMERIC_CHECK);
 //        }
 
+        $today= Carbon::today()->format('Y-m-d');
+
+        $drawMasterId = DB::select("select id from draw_masters where game_id = $inputPlayMaster->gameId and active = 1")[0]->id;
+        $resultMasterDrawId = DB::select("select * from result_masters where date(created_at) = ".$today." and draw_master_id = ".$drawMasterId);
+
+        if($resultMasterDrawId){
+            return response()->json(['success'=> 0, 'data' => null, "message" => "Please buy ticket on ".Carbon::today()->addDays(1)->format('d-m-Y')." on this draw"], 200);
+        }
+
         $userRelationId = UserRelationWithOther::whereTerminalId($inputPlayMaster->terminalId)->whereActive(1)->first();
         $payoutSlabValue = (PayOutSlab::find((User::find($inputPlayMaster->terminalId))->pay_out_slab_id))->slab_value;
         $user = User::find($inputPlayMaster->terminalId);
@@ -50,7 +60,7 @@ class PlayController extends Controller
 
             $playMaster = new PlayMaster();
 //            $playMaster->draw_master_id = $inputPlayMaster->drawMasterId;
-            $playMaster->draw_master_id = DB::select("select id from draw_masters where game_id = $inputPlayMaster->gameId and active = 1")[0]->id;
+            $playMaster->draw_master_id = $drawMasterId;
             $playMaster->barcode_number = rand(10000000000000000,99999999999999999);
             $playMaster->user_id = $inputPlayMaster->terminalId;
             $playMaster->game_id = $inputPlayMaster->gameId;
