@@ -44,7 +44,7 @@ class PlayController extends Controller
         $drawMasterId = DB::select("select id from draw_masters where game_id = $inputPlayMaster->gameId and active = 1")[0]->id;
         $resultMasterDrawId = DB::select("select * from result_masters where date(created_at) = ".$today." and draw_master_id = ".$drawMasterId);
 
-        if($resultMasterDrawId){
+        if($resultMasterDrawId[0]){
             return response()->json(['success'=> 0, 'data' => null, "message" => "Please buy ticket on ".Carbon::today()->addDays(1)->format('d-m-Y')." on this draw"], 200);
         }
 

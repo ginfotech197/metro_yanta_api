@@ -775,7 +775,7 @@ class CentralController extends Controller
 //            }
 //        }
 
-        DB::select("update play_masters set is_cancelable = 0 where game_id = ".$id);
+        DB::select("update play_masters set is_cancelable = 0");
 
         DB::select("update game_types set multiplexer = 1 where game_id =  ".$id);
 
