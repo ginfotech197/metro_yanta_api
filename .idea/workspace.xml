@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="5eca29a0-ed15-4037-b786-6b351566af54" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_08_09_23__1_20_pm.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CentralController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CentralController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PlayController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PlayController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,10 +23,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="G:\Bitnami\wordpress-5.5.1-0\php\php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
@@ -146,14 +154,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "G:/Bitnami/wordpress-5.5.1-0/apache2/htdocs/metro_yanta/metro_yanta_api",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
@@ -467,6 +481,11 @@
       <workItem from="1691816644047" duration="3376000" />
       <workItem from="1691900884951" duration="652000" />
       <workItem from="1692118790247" duration="2117000" />
+      <workItem from="1692122745373" duration="93000" />
+      <workItem from="1692552922393" duration="318000" />
+      <workItem from="1692762241202" duration="449000" />
+      <workItem from="1693411897952" duration="19000" />
+      <workItem from="1694159402031" duration="1477000" />
     </task>
     <servers />
   </component>
@@ -483,7 +502,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -39,14 +39,18 @@ class PlayController extends Controller
 //            return response()->json(['success'=>0,'data'=>null, 'message' => 'Game not Allocated'], 406,[],JSON_NUMERIC_CHECK);
 //        }
 
-        $today= Carbon::today()->format('Y-m-d');
+        $current_time = Carbon::now();
+
+        if($current_time->hour >= 22){
+            return response()->json(['success'=> 0, 'data' => null, "message" => "Draw over for today"], 200);
+        }
 
         $drawMasterId = DB::select("select id from draw_masters where game_id = $inputPlayMaster->gameId and active = 1")[0]->id;
-        $resultMasterDrawId = DB::select("select * from result_masters where date(created_at) = ".$today." and draw_master_id = ".$drawMasterId);
-
-        if($resultMasterDrawId[0]){
-            return response()->json(['success'=> 0, 'data' => null, "message" => "Please buy ticket on ".Carbon::today()->addDays(1)->format('d-m-Y')." on this draw"], 200);
-        }
+//        $resultMasterDrawId = DB::select("select * from result_masters where date(created_at) = ".$today." and draw_master_id = ".$drawMasterId);
+//
+//        if($resultMasterDrawId[0]){
+//            return response()->json(['success'=> 0, 'data' => null, "message" => "Please buy ticket on ".Carbon::today()->addDays(1)->format('d-m-Y')." on this draw"], 200);
+//        }
 
         $userRelationId = UserRelationWithOther::whereTerminalId($inputPlayMaster->terminalId)->whereActive(1)->first();
         $payoutSlabValue = (PayOutSlab::find((User::find($inputPlayMaster->terminalId))->pay_out_slab_id))->slab_value;
