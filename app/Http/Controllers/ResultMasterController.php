@@ -414,7 +414,7 @@ class ResultMasterController extends Controller
         if($this->dateCheck($tempToday,$req) == false){
 
             $singleNumber = Cache::remember($req, 3000000, function () use ($req) {
-                return DB::select("select draw_masters.id as draw_id ,draw_masters.visible_time as draw_time ,result_details.multiplexer, single_numbers.single_number from result_masters
+                return DB::select("select draw_masters.id as draw_id ,draw_masters.visible_time as draw_time ,result_details.multiplexer, single_numbers.single_number, single_numbers.single_name from result_masters
                 inner join result_details on result_details.result_master_id = result_masters.id
                 inner join single_numbers on single_numbers.id = result_details.combination_number_id
                 inner join draw_masters on draw_masters.id = result_masters.draw_master_id
@@ -444,7 +444,7 @@ class ResultMasterController extends Controller
             return response()->json(['success'=>1,'data' => $data], 200);
         }
         else {
-            $singleNumber = DB::select("select draw_masters.id as draw_id ,draw_masters.visible_time as draw_time ,result_details.multiplexer, single_numbers.single_number from result_masters
+            $singleNumber = DB::select("select draw_masters.id as draw_id ,draw_masters.visible_time as draw_time ,result_details.multiplexer, single_numbers.single_number, single_numbers.single_name from result_masters
                 inner join result_details on result_details.result_master_id = result_masters.id
                 inner join single_numbers on single_numbers.id = result_details.combination_number_id
                 inner join draw_masters on draw_masters.id = result_masters.draw_master_id
