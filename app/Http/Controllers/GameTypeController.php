@@ -30,9 +30,18 @@ class GameTypeController extends Controller
 
     public function update_payout(Request $request){
         $requestedData = $request->json()->all();
-        $inputPayoutDetails = $requestedData;
+        $inputPayoutDetail = $requestedData[0];
+
+        $gameType = GameType::find($inputPayoutDetail['gameTypeId']);
+        $gameType->payout = $inputPayoutDetail['newPayout'];
+        $gameType->multiplexer = $inputPayoutDetail['multiplexer'];
+        $gameType->counter = $inputPayoutDetail['counter'];
+        $gameType->save();
+
+        return response()->json(['success'=>1,'data'=> $inputPayoutDetail], 200,[],JSON_NUMERIC_CHECK);
 
         if(count($inputPayoutDetails)>1){
+//            return response()->json(['success'=>1,'data'=> $inputPayoutDetails], 200,[],JSON_NUMERIC_CHECK);
             foreach ($inputPayoutDetails as $inputPayoutDetail){
                 $gameType = GameType::find($inputPayoutDetail['gameTypeId']);
                 $gameType->payout = $inputPayoutDetail['newPayout'];
